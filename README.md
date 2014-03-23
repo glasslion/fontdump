@@ -5,10 +5,12 @@ A command line tool to dump the CSS and different formats of fonts for [Google F
 
 FAQs
 ----
-**Question**: What’s wrong with Google Fonts? Why do I want to serve the fonts on my own server? 
+**Question**: 
+What’s wrong with Google Fonts? Why do I want to serve the fonts on my own server? 
 
 **Answer**: 
-Google Fonts is Great. You shall use it normally. But for users in some countries, Google Fonts is very slow and sometimes inaccessible. Serving your own fonts is the only choice for them. Besides, some developers wish to have more control.They might want to embed fonts as base64 strings into the css to bypass crazy  firewalls. 
+Google Fonts is Great. You shall use it normally. But for users in some countries, Google Fonts is very slow and sometimes even inaccessible. Serving your own fonts is the only choice for them. Besides, some developers may wish to have more control over web fonts. They might want to embed fonts as base64 strings into the css to bypass crazy  firewalls. They might to store the fonts as jsons to the localstorage to speed up page loading.
+
 
 **Question**: 
 Why do I need to install a software to download these fonts? Can't I just open the Chrome developer tools and download the css and fonts manually?
