@@ -3,8 +3,20 @@ fontdump
 
 A command line tool to dump the CSS and different formats of fonts for [Google Fonts][1], so you can serve them on your local servers.
 
-FAQs
-----
+### Usage
+
+    fontdump -h
+    Usage:
+      fontdump <google-fonts-url> [--font-dir-path=<path>]
+      fontdump (-h | --help)
+    
+    Options:
+      -h --help                 Show this screen.
+      --font-dir-path=<path>    Path to the font dir(ends with /). e.g('staic/fonts/', 'http://cdn/.../fonts/')
+
+
+### FAQs
+
 **Question**: 
 What’s wrong with Google Fonts? Why do I want to serve the fonts on my own server? 
 
@@ -20,4 +32,32 @@ Making css font rules compatible with different browsers is not easy. Thus Googl
 
 As a web developer/designer, it is very likely that you are using a modern browser, so the css you get from Google only works in modern browsers. To improve the user experience for old browser users , we need to download the 4 differnet formats of fonts and merge the css rules into a single stylesheet. A tool can simplify the process.
 
+
+**Question**:
+What would the merged css look like?
+
+**Answer**:
+
+like this:
+
+    @font-face {
+      font-family: 'WebFont';
+      src: url('webfont.eot'); /* IE9 Compat Modes */
+      src: local('WebFont'),
+           url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+           url('webfont.woff') format('woff'), /* Modern Browsers */
+           url('webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+           url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+    }
+
+### Reference:
+
+[Using @font-face][2]
+[Bulletproof @font-face Syntax][3]
+[WEBFONT GENERATOR][4]
+
+
   [1]: https://www.google.com/fonts
+  [2]: http://css-tricks.com/snippets/css/using-font-face/
+  [3]: http://www.paulirish.com/2009/bulletproof-font-face-implementation-syntax/
+  [4]: http://www.fontsquirrel.com/tools/webfont-generator
