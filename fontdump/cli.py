@@ -40,17 +40,14 @@ def main():
 
     headers = {}
 
-    style_sheets= {}
+    style_sheets = {}
 
-    # extract woff
+    cached_path = {}
+
     for (format, user_agent) in USER_AGENTS.items():
         headers['User-Agent'] =  user_agent
         r =requests.get(font_url, headers=headers)
         style_sheets[format] = cssutils.parseString(r.content)
-
-    if len(style_sheets['woff'].cssRules) != len(style_sheets['ie6-8'].cssRules):
-        with open('webfonts-ie6-8.css', 'w') as f:
-            f.write(style_sheets['ie6-8'].cssText)
 
     if len(style_sheets['woff'].cssRules) == len(style_sheets['svg'].cssRules):
         INCLUDE_SVG = True
@@ -91,11 +88,25 @@ def main():
             download_font(font_name, svg_url, 'svg')
 
         style.setProperty("src", "url('%s.eot')" % font_path)
+        cached_path[font_name] = "url('%s.eot')" % font_path
         style.setProperty("src", " ,".join(sources), replace=False)
 
     with open('webfonts.css', 'w') as f:
         f.write(style_sheets['woff'].cssText)
 
+    # Fix for ie 6-8
+    if len(style_sheets['woff'].cssRules) != len(style_sheets['ie6-8'].cssRules):
+        for rule in style_sheets['ie6-8']:
+            src = rule.style.src
+            local_names = re.findall(r'local\(\"(.+?)\"\)', src)
+            font_name = local_names[-1]
+            rule.style.removeProperty("src")
+            rule.style.src = ' ,'.join(
+                ["local(\'%s\')" % local_name for local_name in local_names] +
+                [cached_path[font_name]]
+            )
+        with open('webfonts-ie6-8.css', 'w') as f:
+            f.write(style_sheets['ie6-8'].cssText)
 
 if __name__ == '__main__':
     main()
