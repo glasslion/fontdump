@@ -1,2 +1,3 @@
 requests
 cssutils
+docopt

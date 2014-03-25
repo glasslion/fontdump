@@ -1,9 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-#
+"""fontdump.
+
+Usage:
+  fontdump <google-fonts-url> [--font-dir-path=<path>]
+  fontdump (-h | --help)
+
+Options:
+  -h --help                 Show this screen.
+  --font-dir-path=<path>    Path to the font dir(ends with /). e.g('staic/fonts/', 'http://cdn/.../fonts/')  
+"""
 import re
+from urlparse import urljoin
 
 import requests
 import cssutils
+from docopt import docopt
 
 USER_AGENTS = {
     'woff': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', # Chrome
@@ -19,7 +31,12 @@ def download_font(name, url, format):
         f.write(r.content)
 
 def main():
-    font_url = 'http://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800|Dosis:300,400'
+    args = docopt(__doc__)
+    font_url = args['<google-fonts-url>']
+    if args['--font-dir-path']:
+        font_path = args['--font-dir-path']
+    else:
+        font_path = ''
 
     headers = {}
 
@@ -49,7 +66,7 @@ def main():
 
         local_names = re.findall(r'local\(\"(.+?)\"\)', src)
         font_name = local_names[-1]
-        font_path = font_name
+        font_path = urljoin(font_path, font_name)
 
         woff_url = re.findall(r'url\((.+.woff)\)', src)[0]
         download_font(font_name, woff_url, 'woff')
