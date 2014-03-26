@@ -1,7 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-#
-"""fontdump.
-
+"""fontdump heps you dump google web fonts.
+  __            _      _                       
+ / _|          | |    | |                      
+| |_ ___  _ __ | |_ __| |_   _ _ __ ___  _ __  
+|  _/ _ \| '_ \| __/ _` | | | | '_ ` _ \| '_ \ 
+| || (_) | | | | || (_| | |_| | | | | | | |_) |
+|_| \___/|_| |_|\__\__,_|\__,_|_| |_| |_| .__/ 
+                                        | |    
+                                        |_|    
 Usage:
   fontdump <google-fonts-url> [--font-dir-path=<path>]
   fontdump (-h | --help)
