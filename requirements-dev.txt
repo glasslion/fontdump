@@ -1,3 +1,5 @@
 -r requirements.txt
 tox
-pytestls
+pytest
+pytest-cov
+six

@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import six
+
 from fontdump.core import GoogleFontGroup
 class TestMultipleWeightGroup:
     @classmethod
@@ -15,13 +17,22 @@ class TestMultipleWeightGroup:
     def test_has_ie_fix(self):
         assert self.group.has_ie_fix == True
 
+    def test_fetch_css(self):
+        for css in self.group.css.values():
+            assert css.type == 'text/css'
+
 
 class TestSingleWeightSingleFont(object):
     @classmethod
     def setup_class(cls):
         cls.group = GoogleFontGroup(
-            'http://fonts.googleapis.com/css?family=Open+Sans:400')
+            'http://fonts.googleapis.com/css?family=Open+Sans:400'
+            )
         cls.font = cls.group.fonts[0]
+
+    def test_local_names(self):
+        assert isinstance(self.font.local_names, list)
+        assert isinstance(self.font.local_names[-1], six.string_types)
 
     def test_primary_name(self):
         name = self.font.primary_name
@@ -34,6 +45,3 @@ class TestSingleWeightSingleFont(object):
 
     def test_has_ie_fix(self):
         assert self.group.has_ie_fix == False
-
-
-
