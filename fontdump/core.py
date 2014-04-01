@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-#
+from __future__ import print_function
 import re
-from urlparse import urljoin
+try:
+    from urllib.parse import urljoin
+except ImportError:
+    from urlparse import urljoin
 
 import requests
 import cssutils
@@ -51,7 +55,7 @@ class GoogleFont(object):
             font_url = re.findall(r'url\((.+.%s)\)' % format, style['src'])[0]
             r = requests.get(font_url)
             filename = '%s.%s' % (self.primary_name, format)
-            print 'Downloading font %s ...' % filename
+            print('Downloading font %s ...' % filename)
             with open(filename, 'w') as f:
                 f.write(r.content)
 
@@ -84,7 +88,7 @@ class GoogleFontGroup(object):
         self.has_svg = self.fonts_count == len(self.css['svg'].cssRules)
         self.formats = ['woff', 'ttf', 'eot']
         if self.has_svg:
-            self.foramts.append('svg')
+            self.formats.append('svg')
         self.has_ie_fix = self.fonts_count != len(self.css['ie6-8'].cssRules)
         self.merged_css = self.css['woff']
         self.name_to_font = {}
