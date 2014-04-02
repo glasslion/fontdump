@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-#
 from __future__ import print_function
+import os
 import re
 try:
     from urllib.parse import urljoin
@@ -41,7 +42,7 @@ class GoogleFont(object):
 
         # e.g. [ 'Dosis Light', 'Dosis-Light']
         self.local_names = re.findall(
-            r'local\(\"(.+?)\"\)',
+            r'local\([\'"](.+?)[\'"]\)',
             self.styles['woff']['src'])
 
         # e.g. 'Dosis-Light'
@@ -52,12 +53,16 @@ class GoogleFont(object):
     def download_font_files(self):
         for format in self.group.formats:
             style = self.styles[format]
-            font_url = re.findall(r'url\((.+.%s)\)' % format, style['src'])[0]
+            if format == 'svg':
+                pattern = r'url\((.*)\) +format\([\'"]%s[\'"]\)' % format
+            else:
+                pattern = r'url\((.+.%s)\)' % format
+
+            font_url = re.findall(pattern, style['src'])[0]
             r = requests.get(font_url)
             filename = '%s.%s' % (self.primary_name, format)
             print('Downloading font %s ...' % filename)
-            with open(filename, 'w') as f:
-                f.write(r.content)
+            self.group.save_file(filename, r.content)
 
     def merge_src(self):
         self.eot_src = "url('%s.eot')" % self.path
@@ -80,9 +85,20 @@ class GoogleFont(object):
 class GoogleFontGroup(object):
     """docstring for GoogleFont"""
 
-    def __init__(self, google_fonts_url, font_dir_path=''):
+    def __init__(
+        self,
+        google_fonts_url,
+        font_dir_path=None,
+        output_path=None):
         self.google_fonts_url = google_fonts_url
-        self.font_dir_path = font_dir_path
+        if font_dir_path is None:
+            self.font_dir_path = ''
+        else:
+            self.font_dir_path = font_dir_path
+        if output_path:
+            self.output_path = output_path
+        else:
+            self.output_path = os.getcwd()
         self.fetch_cross_browser_csses()
         self.fonts_count = len(self.css['woff'].cssRules)
         self.has_svg = self.fonts_count == len(self.css['svg'].cssRules)
@@ -120,9 +136,7 @@ class GoogleFontGroup(object):
             merged_style.setProperty("src", font.eot_src)
             merged_style.setProperty("src", font.merged_src, replace=False)
             self.name_to_font[font.primary_name] = font
-
-        with open('webfonts.css', 'w') as f:
-            f.write(self.merged_css.cssText)
+        self.save_file('webfonts.css', self.merged_css.cssText)
 
         self.dump_ie_fix()
 
@@ -130,12 +144,16 @@ class GoogleFontGroup(object):
         if self.has_ie_fix:
             for rule in self.css['ie6-8']:
                 src = rule.style.src
-                local_names = re.findall(r'local\(\"(.+?)\"\)', src)
+                local_names = re.findall(r'local\([\'"](.+?)[\'"]\)', src)
                 primary_name = local_names[-1]
                 rule.style.removeProperty("src")
                 rule.style.src = ' ,'.join(
                     ["local(\'%s\')" % name for name in local_names] +
                     [self.name_to_font[primary_name].eot_src]
                 )
-            with open('webfonts-ie6-8.css', 'w') as f:
-                f.write(self.css['ie6-8'].cssText)
+            self.save_file('webfonts-ie6-8.css', self.css['ie6-8'].cssText)
+
+    def save_file(self, name, content):
+        full_path =os.path.join(self.output_path, name)
+        with open(full_path, 'w') as f:
+            f.write(content)
