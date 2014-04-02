@@ -21,7 +21,9 @@ A command line tool to dump the CSS and different formats of fonts for [Google F
 
     Options:
       -h --help                 Show this screen.
-      --font-dir-path=<path>    Path to the font dir(ends with /). e.g('staic/fonts/', 'http://cdn/.../fonts/')
+      --font-dir-path=<path>    Path to the font dir(ends with /).
+                                e.g('staic/fonts/', 'http://cdn/.../fonts/')
+      --output=<dir>            The directory saves the dumped css and font files
 
 
 ### FAQs
