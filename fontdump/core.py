@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-#
 from __future__ import print_function
+from io import open
 import os
 import re
 try:
@@ -155,5 +156,5 @@ class GoogleFontGroup(object):
 
     def save_file(self, name, content):
         full_path =os.path.join(self.output_path, name)
-        with open(full_path, 'w') as f:
+        with open(full_path, 'wb') as f:
             f.write(content)
