@@ -41,7 +41,7 @@ Why do I need to install a software to download these fonts? Can't I just open t
 **Answer**:
 Making css font rules compatible with different browsers is not easy. Thus Google detects the browser's User Agent string and serve the css that is only compatible with the given browser. 
 
-As a web developer/designer, it is very likely that you are using a modern browser, so the css you get from Google only works in modern browsers. To improve the user experience for old browser users , we need to download the 4 differnet formats of fonts and merge the css rules into a single stylesheet. A tool can simplify the process.
+As a web developer/designer, it is very likely that you are using a modern browser, so the css you get from Google only works in modern browsers. To improve the user experience for old browser users , we need to download the 4 different formats of fonts and merge the css rules into a single stylesheet. A tool can simplify the process.
 
 
 **Question**:
