@@ -1,5 +1,6 @@
 fontdump
 ========
+[![Build Status](https://travis-ci.org/glasslion/fontdump.svg?branch=master)](https://travis-ci.org/glasslion/fontdump)
 
 A command line tool to dump the CSS and different formats of fonts for [Google Fonts][1], so you can serve them on your local servers.
 
