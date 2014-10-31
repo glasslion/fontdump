@@ -1,6 +1,9 @@
 fontdump
 ========
 [![Build Status](https://travis-ci.org/glasslion/fontdump.svg?branch=master)](https://travis-ci.org/glasslion/fontdump)
+[![Latest Version](https://pypip.in/version/fontdump/badge.svg)](https://pypi.python.org/pypi/fontdump/)
+[![License](https://pypip.in/license/fontdump/badge.svg)](https://pypi.python.org/pypi/fontdump/)
+
 
 A command line tool to dump the CSS and different formats of fonts for [Google Fonts][1], so you can serve them on your local servers.
 
