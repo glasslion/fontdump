@@ -30,6 +30,10 @@ Options:
   --output=<dir>            The directory saves the dumped css and font files
 ```
 
+### Screencast
+[<img src="https://github.com/glasslion/fontdump/raw/master/screenshot.png">](https://asciinema.org/a/14123)
+
+
 ### FAQs
 
 **Question**: 
