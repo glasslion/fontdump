@@ -1,30 +1,34 @@
 fontdump
 ========
+[![Build Status](https://travis-ci.org/glasslion/fontdump.svg?branch=master)](https://travis-ci.org/glasslion/fontdump)
+[![Latest Version](https://pypip.in/version/fontdump/badge.svg)](https://pypi.python.org/pypi/fontdump/)
+[![License](https://pypip.in/license/fontdump/badge.svg)](https://pypi.python.org/pypi/fontdump/)
+
 
 A command line tool to dump the CSS and different formats of fonts for [Google Fonts][1], so you can serve them on your local servers.
 
 ### Usage
+```bash
+$ fontdump -h
+fontdump heps you dump google web fonts.
+  __            _      _
+ / _|          | |    | |
+| |_ ___  _ __ | |_ __| |_   _ _ __ ___  _ __
+|  _/ _ \| '_ \| __/ _` | | | | '_ ` _ \| '_ \
+| || (_) | | | | || (_| | |_| | | | | | | |_) |
+|_| \___/|_| |_|\__\__,_|\__,_|_| |_| |_| .__/
+                                        | |
+                                        |_|
+Usage:
+  fontdump <google-fonts-url> [--font-dir-path=<path>]
+  fontdump (-h | --help)
 
-    $ fontdump -h
-    fontdump heps you dump google web fonts.
-      __            _      _
-     / _|          | |    | |
-    | |_ ___  _ __ | |_ __| |_   _ _ __ ___  _ __
-    |  _/ _ \| '_ \| __/ _` | | | | '_ ` _ \| '_ \
-    | || (_) | | | | || (_| | |_| | | | | | | |_) |
-    |_| \___/|_| |_|\__\__,_|\__,_|_| |_| |_| .__/
-                                            | |
-                                            |_|
-    Usage:
-      fontdump <google-fonts-url> [--font-dir-path=<path>]
-      fontdump (-h | --help)
-
-    Options:
-      -h --help                 Show this screen.
-      --font-dir-path=<path>    Path to the font dir(ends with /).
-                                e.g('staic/fonts/', 'http://cdn/.../fonts/')
-      --output=<dir>            The directory saves the dumped css and font files
-
+Options:
+  -h --help                 Show this screen.
+  --font-dir-path=<path>    Path to the font dir(ends with /).
+                            e.g('staic/fonts/', 'http://cdn/.../fonts/')
+  --output=<dir>            The directory saves the dumped css and font files
+```
 
 ### FAQs
 
@@ -50,17 +54,17 @@ What would the merged css look like?
 **Answer**:
 
 like this:
-
-    @font-face {
-      font-family: 'WebFont';
-      src: url('webfont.eot'); /* IE9 Compat Modes */
-      src: local('WebFont'),
-           url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-           url('webfont.woff') format('woff'), /* Modern Browsers */
-           url('webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
-           url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
-    }
-
+```css
+@font-face {
+  font-family: 'WebFont';
+  src: url('webfont.eot'); /* IE9 Compat Modes */
+  src: local('WebFont'),
+       url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('webfont.woff') format('woff'), /* Modern Browsers */
+       url('webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+```
 ### Reference:
 
 [Using @font-face][2]
