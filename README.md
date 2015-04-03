@@ -31,7 +31,7 @@ Options:
 ```
 
 ### Screencast
-[<img src="https://github.com/glasslion/fontdump/raw/master/screenshot.png">](https://asciinema.org/a/14123)
+[![asciicast](https://asciinema.org/a/14123.png)](https://asciinema.org/a/14123)
 
 
 ### FAQs
